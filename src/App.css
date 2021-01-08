@@ -1,3 +1,11 @@
+p {
+  color: white;
+}
+
+a {
+  color: #FDD171;
+}
+
 #chatbox {
   width: 95%;
   padding: 12px 20px;
@@ -17,6 +25,33 @@
 
 #chatbox:focus {
   outline-width: 0;
+}
+
+.primary-button {
+  background-color: #1C1B29;
+  color: rgb(174, 167, 185);
+  border-radius: 8px;
+  border: none;
+  font-size: 16px;
+  padding: 12px 20px;
+  z-index: 1;
+}
+
+.primary-button:hover {
+  cursor: pointer;
+  background-color: #151420;
+}
+
+.login-register-input {
+  padding: 12px 20px;
+  margin: 8px auto;
+  box-sizing: border-box;
+  font-size: 16px;
+  font-weight: 500;
+  border-radius: 8px;
+  background-color: #1C1B29;
+  color: #DCDDDE;
+  border: none;
 }
 
 .message {
@@ -47,4 +82,13 @@
 
 ::-ms-input-placeholder { /* Microsoft Edge */
   color: #64636b;
+}
+
+.logo {
+  margin-left: 0px;
+  font-size: 24px;
+  font-weight: 800;
+  color: #FDD171;
+  padding-left: 0px;
+  position: relative;
 }
