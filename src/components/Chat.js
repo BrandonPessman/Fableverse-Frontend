@@ -2,10 +2,13 @@ import React, {useState, useEffect} from 'react'
 import { useHistory } from "react-router-dom";
 import axios from 'axios'
 import { useCookies } from 'react-cookie';
- 
+
+import io from 'socket.io-client'
+const socket = io('http://localhost:8002/1', {transports: ['websocket']});
+
 function Chat() {
     const [user, setUser] = useState('')
-    const [isLoading, setLoading] = useState(true)
+    const [isLoading, setLoading] = useState(false)
     const [cookies, setCookie] = useCookies(['token']);
     let history = useHistory();
 
@@ -14,13 +17,37 @@ function Chat() {
             //const status = res.data.status
             setUser(res.data.data)
             setLoading(false)
-            console.log(res)
+
+            socket.on('recieve message', function (chat) {
+              console.log("Message from server.")
+              console.log(chat)
+            })
+
+            // Get the input field
+            const input = document.getElementById("chatbox");
+
+            // Execute a function when the user releases a key on the keyboard
+            input.addEventListener("keyup", function(event) {
+                // Number 13 is the "Enter" key on the keyboard
+                if (event.key === "Enter") {
+                    const message = document.getElementById("chatbox").value
+                    let data = {
+                        from: res.data.data.username,
+                        message: message
+                    }
+                    socket.emit('new message', data)
+                    document.getElementById("chatbox").value = ""
+                }
+            });
         }).catch(err => {
             history.push("/");
         })
-    }, [cookies.token, history])
-
-    
+        
+        return () => {
+            socket.close()
+        }
+        // eslint-disable-next-line
+    }, [])
 
     function handleClick() {
         setCookie('token', "", { path: '/' });
