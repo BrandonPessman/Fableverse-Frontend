@@ -29,7 +29,9 @@ function Chat() {
 
               let list = messages
               list.push({from, message, time})
-              setMessages(list)
+              setMessages([...list])
+              console.log(list)
+              console.log("Messages")
               console.log(messages)
             })
 
@@ -75,7 +77,7 @@ function Chat() {
             </div> */}
             {messages.map((item) => {
                 return (
-                    <div className="message">
+                    <div className="message" key={item.time}>
                         <h2 style={{color: '#FDD171', margin: '0 14px', fontSize: '16px', fontWeight: '500'}}>{item.from}<span style={{fontSize: '12px', color: 'grey', marginLeft: '10px', fontWeight: '400'}}>{item.time}</span></h2>
                         <p style={{color: '#DCDDDE', margin: '0 14px', fontSize: '16px', fontWeight: '400'}}>{item.message}</p>
                     </div>
